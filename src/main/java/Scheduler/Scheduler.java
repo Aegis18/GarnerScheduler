@@ -1,5 +1,6 @@
 package Scheduler;
 
+import Scheduler.Entry.VehicleEntry;
 import Scheduler.ListConverter.CSVListConverter;
 import Scheduler.ListConverter.ListConverter;
 
@@ -7,15 +8,21 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class Scheduler {
 
     public static final int PRIORITY_ASCENDING = 0;
     public static final int PRIORITY_DECENDING = 1;
-//    private final ListConverter listConverter;
+    private final ListConverter listConverter;
+    private final int priorityOrder;
 
     private Scheduler(SchedulerBuilder schedulerBuilder){
+        this.listConverter = schedulerBuilder.listConverter;
+        this.priorityOrder = schedulerBuilder.priorityOrder;
     }
 
     public static class SchedulerBuilder {
@@ -77,10 +84,55 @@ public class Scheduler {
                 listConverter = new CSVListConverter(filePath);
             return new Scheduler(this);
         }
+    }
 
-        private List generateList(){
-            List<String> list = listConverter.convertToList();
-            return list;
+    private List generateList(){
+        return listConverter.convertToList();
+    }
+
+    private List sort(){
+        return null;
+    }
+
+    private List sortByMinWeight(List list){
+        PriorityQueue<VehicleEntry> queue = new PriorityQueue(list.size(), new VehicleMinWeightComparator());
+        Iterator<VehicleEntry> it = list.iterator();
+        while(it.hasNext()){
+            VehicleEntry vehicleEntry = (VehicleEntry) it.next();
+        }
+        return null;
+    }
+
+    private List sortByAscendingPriority(List list){
+        PriorityQueue queue = new PriorityQueue();
+        return null;
+    }
+
+    private class VehicleAscendingPriorityComparator implements Comparator<VehicleEntry> {
+        @Override
+        public int compare(VehicleEntry vehicleEntry, VehicleEntry t1) {
+            if(vehicleEntry.getPriority() == t1.getPriority())
+                return 0;
+            return (vehicleEntry.getPriority() < t1.getPriority()) ? 1 : -1;
+        }
+    }
+
+    private class VehicleDescendingPriorityComparator implements Comparator<VehicleEntry>{
+        @Override
+        public int compare(VehicleEntry vehicleEntry, VehicleEntry t1) {
+            if(vehicleEntry.getPriority() == t1.getPriority())
+                return 0;
+            return (vehicleEntry.getPriority() > t1.getPriority()) ? 1 : -1;
+        }
+    }
+
+    private class VehicleMinWeightComparator implements Comparator<VehicleEntry>{
+
+        @Override
+        public int compare(VehicleEntry o1, VehicleEntry o2) {
+            if(o1.getWeight() == o2.getWeight())
+                return 0;
+            return (o1.getWeight() < o2.getWeight()) ? 1 : -1;
         }
     }
 }
