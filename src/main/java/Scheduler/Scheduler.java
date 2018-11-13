@@ -90,21 +90,24 @@ public class Scheduler {
         return listConverter.convertToList();
     }
 
+    private List validateList(List list){
+        Iterator<VehicleEntry> it = list.iterator();
+        
+        return null;
+    }
+
     private List sort(){
         return null;
     }
 
-    private List sortByMinWeight(List list){
+    private PriorityQueue sortByMinWeight(List list){
         PriorityQueue<VehicleEntry> queue = new PriorityQueue(list.size(), new VehicleMinWeightComparator());
-        Iterator<VehicleEntry> it = list.iterator();
-        while(it.hasNext()){
-            VehicleEntry vehicleEntry = (VehicleEntry) it.next();
-        }
-        return null;
+        queue.addAll(list);
+        return queue;
     }
 
-    private List sortByAscendingPriority(List list){
-        PriorityQueue queue = new PriorityQueue();
+    private PriorityQueue sortByAscendingPriority(List list){
+
         return null;
     }
 
@@ -127,7 +130,6 @@ public class Scheduler {
     }
 
     private class VehicleMinWeightComparator implements Comparator<VehicleEntry>{
-
         @Override
         public int compare(VehicleEntry o1, VehicleEntry o2) {
             if(o1.getWeight() == o2.getWeight())
