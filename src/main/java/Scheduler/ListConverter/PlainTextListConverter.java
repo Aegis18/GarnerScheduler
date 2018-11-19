@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CSVListConverter implements ListConverter{
+public class PlainTextListConverter implements ListConverter{
 
     private Stream<String> csvStream;
 
-    public CSVListConverter(){
+    public PlainTextListConverter(){
 
     }
 
-    public CSVListConverter(String path) throws IOException{
+    public PlainTextListConverter(String path) throws IOException{
         setPath(path);
     }
 

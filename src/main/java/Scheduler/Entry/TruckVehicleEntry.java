@@ -1,6 +1,7 @@
 package Scheduler.Entry;
 
 
+import Scheduler.WeightConverter.WeightConverter;
 import Scheduler.WeightUnits;
 
 public final class TruckVehicleEntry extends VehicleEntry {
@@ -22,36 +23,36 @@ public final class TruckVehicleEntry extends VehicleEntry {
     }
 
 //    @Override
-    public static TruckVehicleEntry convert(String descriptor, String delimiter){
-        if(descriptor == null || delimiter == null || delimiter.equals(""))
-            throw new IllegalArgumentException("Invalid descriptor or delimiter");
-        String[] properties = descriptor.split(delimiter);
-        if(properties.length != 5)
-            throw new IllegalArgumentException("Invalid parameters for parsing");
-        int id = Integer.parseInt(properties[0]);
-        String description = properties[1];
-        double weight = Double.parseDouble(properties[2]);
-        WeightUnits unit = null;
-        switch(properties[3]){
-            case "ton":
-                unit = WeightUnits.TON;
-                break;
-            case "lbs":
-                unit = WeightUnits.LBS;
-                break;
-            case "kg" :
-                unit = WeightUnits.KG;
-                break;
-                default:
-                    throw new IllegalArgumentException("Invalid weight");
-        }
-        int priority = Integer.parseInt(properties[4]);
-        return new TruckVehicleEntry(id, description, weight, unit, priority);
-    }
+//    public static TruckVehicleEntry convert(String descriptor, String delimiter){
+//        if(descriptor == null || delimiter == null || delimiter.equals(""))
+//            throw new IllegalArgumentException("Invalid descriptor or delimiter");
+//        String[] properties = descriptor.split(delimiter);
+//        if(properties.length < 5)
+//            throw new IllegalArgumentException("Invalid parameters for parsing");
+//        int id = Integer.parseInt(properties[0]);
+//        String description = properties[1];
+//        double weight = Double.parseDouble(properties[2]);
+//        WeightUnits unit = null;
+//        switch(properties[3]){
+//            case "ton":
+//                unit = WeightUnits.TON;
+//                break;
+//            case "lbs":
+//                unit = WeightUnits.LBS;
+//                break;
+//            case "kg" :
+//                unit = WeightUnits.KG;
+//                break;
+//                default:
+//                    throw new IllegalArgumentException("Invalid weight");
+//        }
+//        int priority = Integer.parseInt(properties[4]);
+//        return new TruckVehicleEntry(id, description, weight, unit, priority);
+//    }
 
     @Override
     public String toString(){
-        return id + ", " + weight + ", " + unit;
+        return id + ", " + weight + ", " + unit + ", " + priority;
     }
 
 

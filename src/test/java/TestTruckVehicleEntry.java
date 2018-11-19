@@ -1,10 +1,13 @@
 import Scheduler.Entry.TruckVehicleEntry;
-import Scheduler.ListConverter.CSVListConverter;
+import Scheduler.Entry.VehicleEntry;
+import Scheduler.Scheduler;
 import Scheduler.WeightUnits;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class TestTruckVehicleEntry {
 
@@ -25,16 +28,37 @@ public class TestTruckVehicleEntry {
         }
     }
 
+//    @Test
+//    public void testConvert(){
+//
+//        String fileName = "C:\\Users\\Avi\\Documents\\AtChat\\munchies\\GarnerScheduler\\csvTest.csv";
+//        try {
+//            Scheduler scheduler = new Scheduler.SchedulerBuilder(fileName, LocalDateTime.now()).build();
+//            List list = scheduler.generateList();
+//            List<VehicleEntry> l = scheduler.validateList(list);
+//            for (VehicleEntry v: l) {
+//                System.out.println(((TruckVehicleEntry)v).toString());
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     @Test
-    public void testConvert(){
+    public void testSort(){
+
+        String fileName = "C:\\Users\\Avi\\Documents\\AtChat\\munchies\\GarnerScheduler\\csvTest.csv";
         try {
-            CSVListConverter csvListConverter = new CSVListConverter("C:\\Users\\range\\Documents\\Garner\\GarnerScheduler\\csvTest.csv");
-            List<String> list = csvListConverter.convertToList();
-            TruckVehicleEntry tve = TruckVehicleEntry.convert(list.get(0), ",");
-            System.out.println(tve.toString());
+            Scheduler scheduler = new Scheduler.SchedulerBuilder(fileName, LocalDateTime.now()).tempMaxWeight(15)
+                                                                                                .tempMaxWeightDays(15)
+                    .daysToBeCompleted(60).build();
+            List<VehicleEntry> list =scheduler.schedule();
+            for(VehicleEntry v : list)
+                System.out.println(v);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+
 }

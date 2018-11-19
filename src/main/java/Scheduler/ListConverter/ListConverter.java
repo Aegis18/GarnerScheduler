@@ -3,5 +3,5 @@ package Scheduler.ListConverter;
 import java.util.List;
 
 public interface ListConverter {
-    public List convertToList();
+    public List<String> convertToList();
 }
